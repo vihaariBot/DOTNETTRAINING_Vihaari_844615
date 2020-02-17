@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+@using (Html.BeginForm("signin", "check", FormMethod.Post))
+{
+<span>username: </span>@Html.TextBox("username")<br />
+<span>password: </span>@Html.TextBox("password", null, new { type = "password" })<br />
+<input type="submit"/>
+}

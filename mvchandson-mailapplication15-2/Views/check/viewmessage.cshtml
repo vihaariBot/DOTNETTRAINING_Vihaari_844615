@@ -1,0 +1,34 @@
+﻿@model mvchandson_mailapplication15_2.Models.maildata
+@{
+    ViewBag.Title = "viewmessage";
+    Layout = null;
+}
+
+<h2>viewmessage</h2>
+<table border="1">
+    <tr>
+        <td>
+            <b>MailFrom</b>
+        </td>
+        <td>
+            <b>Subject</b>
+        </td>
+        <td>
+            <b>
+                MailMessage
+            </b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Model.mailfrom
+        </td>
+        <td>
+            @Model.subject
+        </td>
+        <td>
+            @Model.messge
+        </td>
+    </tr>
+</table>
+

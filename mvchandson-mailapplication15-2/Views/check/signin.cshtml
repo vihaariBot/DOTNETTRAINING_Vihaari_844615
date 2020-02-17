@@ -1,0 +1,29 @@
+﻿
+@model List<mvchandson_mailapplication15_2.Models.maildata>
+@{
+    ViewBag.Title = "signin";
+    Layout = null;
+}
+
+<h2>signin</h2>
+<table border="1">
+    <tr>
+        <td>
+            <b>MailFrom</b>
+        </td>
+        <td>
+            <b>subject</b>
+        </td>
+        <td>
+            <b>RecieveDate</b>
+        </td>
+    </tr>
+    @foreach (var obj in Model)
+    {
+    <tr>
+        <td>@obj.mailfrom</td>
+        <td><a href="/check/viewmessage?mid=@obj.mailid">@obj.subject</a></td>
+        <td>@obj.recievedate</td>
+    </tr>
+    }
+</table>
