@@ -1,0 +1,14 @@
+﻿@model modeltrails.Models.datafine
+@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+<h1>hello</h1>
+@Model.fname
+@Model.lname
+@{ foreach(var i in Model.tasks)
+    {
+        @i
+        <br />
+    }
+}

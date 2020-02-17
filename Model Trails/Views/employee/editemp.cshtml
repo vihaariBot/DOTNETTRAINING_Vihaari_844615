@@ -1,0 +1,17 @@
+﻿@model modeltrails.Models.datafine
+@{
+    ViewBag.Title = "addnew";
+    Layout = null;
+}
+
+<h2>addnew</h2>
+@using (Html.BeginForm("editemp", "employee", FormMethod.Post))
+{
+    <span>First Name:</span>@Html.TextBox("fname")<br />
+    <span>Last Name:</span>@Html.TextBoxFor(m => m.lname)<br />
+    <span>Job Name:</span>@Html.TextBoxFor(n => n.jname)<br />
+    <span>Location:</span>@Html.DropDownListFor(m => m.location, Model.locs)<br />
+    <in000put type="submit" />
+    @Model.fname
+
+}
