@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <table style="width:100%">
+        <tr>
+            <td style="width:20%;background-color:blue;height:40px">
+                image here
+            </td>
+            <td style="width:80%;background-color:aqua;height:40px">
+                <h1>TRM</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%;background-color:cadetblue;height:150px">
+                menu<br />
+                delete<br />
+                edit<br />
+            </td>
+            <td style="width:20%;background-color:aquamarine;height:150px">
+                <div>
+                    @RenderBody()
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+@using (Html.BeginForm("data","submit",FormMethod.Post))
+{
+            <table style="width:100%" border="1">
+                <tr>
+                    <td colspan="100%">
+                        <h2>New Training Request</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       <b>Requirement Name</b> 
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="0">
+                      @Html.TextBox("rname")
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>skill</b></td></tr><tr>
+                    <td>
+                      
+                        @Html.DropDownList("skill", (SelectListItem[])ViewBag.skills)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Start Date</b>
+                    </td>
+                </tr>
+                <tr><td>
+                    @Html.TextBox("sdate", null, new { type = "date" })
+                    </td></tr>
+                <tr>
+                    <td>
+                        <b>End Date</b>
+                    </td>
+                </tr>
+                <tr><td>@Html.TextBox("edate", null, new { type = "date" })</td></tr>
+                <tr>
+                    <th>
+                        <b> <input type="submit" value="Create Request"></b>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="tee.html">Go to Dashboard</a>
+                    </td>
+                </tr>
+            </table>
+}
+       
