@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="int" Nullable="false" />
+          <Property Name="dep_name" Type="varchar" MaxLength="20" />
+          <Property Name="dep_location" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="emp_name" Type="varchar" MaxLength="15" />
+          <Property Name="job_name" Type="varchar" MaxLength="10" />
+          <Property Name="manager_id" Type="int" />
+          <Property Name="hire_date" Type="date" />
+          <Property Name="salary" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="commission" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="dep_id" Type="int" />
+        </EntityType>
+        <EntityType Name="salary_grade">
+          <Key>
+            <PropertyRef Name="grade" />
+          </Key>
+          <Property Name="grade" Type="int" Nullable="false" />
+          <Property Name="min_salary" Type="int" />
+          <Property Name="max_salary" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__employees__dep_i__15502E78">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="dep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testModelStoreContainer">
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salary_grade" EntityType="Self.salary_grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__employees__dep_i__15502E78" Association="Self.FK__employees__dep_i__15502E78">
+            <End Role="department" EntitySet="department" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="Int32" Nullable="false" />
+          <Property Name="dep_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dep_location" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employees" Relationship="Self.FK__employees__dep_i__15502E78" FromRole="department" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="job_name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="manager_id" Type="Int32" />
+          <Property Name="hire_date" Type="DateTime" Precision="0" />
+          <Property Name="salary" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="commission" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="dep_id" Type="Int32" />
+          <NavigationProperty Name="department" Relationship="Self.FK__employees__dep_i__15502E78" FromRole="employees" ToRole="department" />
+        </EntityType>
+        <EntityType Name="salary_grade">
+          <Key>
+            <PropertyRef Name="grade" />
+          </Key>
+          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="min_salary" Type="Int32" />
+          <Property Name="max_salary" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__employees__dep_i__15502E78">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="dep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="salary_grade" EntityType="Self.salary_grade" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__employees__dep_i__15502E78" Association="Self.FK__employees__dep_i__15502E78">
+            <End Role="department" EntitySet="departments" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities">
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="testModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+                <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+                <ScalarProperty Name="dep_location" ColumnName="dep_location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="testModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="job_name" ColumnName="job_name" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="commission" ColumnName="commission" />
+                <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salary_grade">
+            <EntityTypeMapping TypeName="testModel.salary_grade">
+              <MappingFragment StoreEntitySet="salary_grade">
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="min_salary" ColumnName="min_salary" />
+                <ScalarProperty Name="max_salary" ColumnName="max_salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="testModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
