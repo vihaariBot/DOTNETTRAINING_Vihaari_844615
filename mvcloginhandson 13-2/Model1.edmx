@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="newcompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="logininfo">
+          <Key>
+            <PropertyRef Name="usid" />
+          </Key>
+          <Property Name="usid" Type="int" Nullable="false" />
+          <Property Name="usname" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="pwd" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userdetails">
+          <Key>
+            <PropertyRef Name="detid" />
+          </Key>
+          <Property Name="detid" Type="int" Nullable="false" />
+          <Property Name="usid" Type="int" Nullable="false" />
+          <Property Name="fname" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="rto" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="fk">
+          <End Role="logininfo" Type="Self.logininfo" Multiplicity="1" />
+          <End Role="userdetails" Type="Self.userdetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="logininfo">
+              <PropertyRef Name="usid" />
+            </Principal>
+            <Dependent Role="userdetails">
+              <PropertyRef Name="usid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newcompanyModelStoreContainer">
+          <EntitySet Name="logininfo" EntityType="Self.logininfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userdetails" EntityType="Self.userdetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk" Association="Self.fk">
+            <End Role="logininfo" EntitySet="logininfo" />
+            <End Role="userdetails" EntitySet="userdetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="newcompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="logininfo">
+          <Key>
+            <PropertyRef Name="usid" />
+          </Key>
+          <Property Name="usid" Type="Int32" Nullable="false" />
+          <Property Name="usname" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pwd" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="userdetails" Relationship="Self.fk" FromRole="logininfo" ToRole="userdetails" />
+        </EntityType>
+        <EntityType Name="userdetail">
+          <Key>
+            <PropertyRef Name="detid" />
+          </Key>
+          <Property Name="detid" Type="Int32" Nullable="false" />
+          <Property Name="usid" Type="Int32" Nullable="false" />
+          <Property Name="fname" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="logininfo" Relationship="Self.fk" FromRole="userdetails" ToRole="logininfo" />
+        </EntityType>
+        <Association Name="fk">
+          <End Role="logininfo" Type="Self.logininfo" Multiplicity="1" />
+          <End Role="userdetails" Type="Self.userdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="logininfo">
+              <PropertyRef Name="usid" />
+            </Principal>
+            <Dependent Role="userdetails">
+              <PropertyRef Name="usid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newcompanyEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="logininfoes" EntityType="Self.logininfo" />
+          <EntitySet Name="userdetails" EntityType="Self.userdetail" />
+          <AssociationSet Name="fk" Association="Self.fk">
+            <End Role="logininfo" EntitySet="logininfoes" />
+            <End Role="userdetails" EntitySet="userdetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="newcompanyModelStoreContainer" CdmEntityContainer="newcompanyEntities2">
+          <EntitySetMapping Name="logininfoes">
+            <EntityTypeMapping TypeName="newcompanyModel.logininfo">
+              <MappingFragment StoreEntitySet="logininfo">
+                <ScalarProperty Name="usid" ColumnName="usid" />
+                <ScalarProperty Name="usname" ColumnName="usname" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userdetails">
+            <EntityTypeMapping TypeName="newcompanyModel.userdetail">
+              <MappingFragment StoreEntitySet="userdetails">
+                <ScalarProperty Name="detid" ColumnName="detid" />
+                <ScalarProperty Name="usid" ColumnName="usid" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="rto" ColumnName="rto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
