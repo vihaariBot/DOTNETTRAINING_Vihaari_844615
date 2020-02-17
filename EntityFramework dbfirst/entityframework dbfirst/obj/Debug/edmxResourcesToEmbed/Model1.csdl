@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="loginModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="datum">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="mid" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mid" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="login">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="loginEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="data" EntityType="Self.datum" />
+    <EntitySet Name="logins" EntityType="Self.login" />
+  </EntityContainer>
+</Schema>

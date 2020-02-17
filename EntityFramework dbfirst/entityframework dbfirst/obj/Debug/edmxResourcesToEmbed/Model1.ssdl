@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="loginModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'login.dbo.data' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="data">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="mid" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="mid" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'login.dbo.login' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="login">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="loginModelStoreContainer">
+    <EntitySet Name="data" EntityType="Self.data" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [data].[id] AS [id], 
+    [data].[name] AS [name], 
+    [data].[mid] AS [mid]
+    FROM [dbo].[data] AS [data]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="login" EntityType="Self.login" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [login].[username] AS [username], 
+    [login].[password] AS [password], 
+    [login].[id] AS [id]
+    FROM [dbo].[login] AS [login]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
