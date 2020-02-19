@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="automatedexamsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="eid" />
+          </Key>
+          <Property Name="eid" Type="int" Nullable="false" />
+          <Property Name="ename" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="subjectcount" Type="int" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="schools">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="int" Nullable="false" />
+          <Property Name="sname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="count" Type="int" Nullable="false" />
+          <Property Name="examid" Type="int" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_schools_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="schools" Type="Self.schools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="eid" />
+            </Principal>
+            <Dependent Role="schools">
+              <PropertyRef Name="examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="automatedexamsModelStoreContainer">
+          <EntitySet Name="exam" EntityType="Self.exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_schools_exam" Association="Self.FK_schools_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="schools" EntitySet="schools" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="automatedexamsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="eid" />
+          </Key>
+          <Property Name="eid" Type="Int32" Nullable="false" />
+          <Property Name="ename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="subjectcount" Type="Int32" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="schools" Relationship="Self.FK_schools_exam" FromRole="exam" ToRole="schools" />
+        </EntityType>
+        <EntityType Name="school">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="Int32" Nullable="false" />
+          <Property Name="sname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+          <Property Name="examid" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_schools_exam" FromRole="schools" ToRole="exam" />
+        </EntityType>
+        <Association Name="FK_schools_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="schools" Type="Self.school" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="eid" />
+            </Principal>
+            <Dependent Role="schools">
+              <PropertyRef Name="examid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="automatedexamsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="exams" EntityType="Self.exam" />
+          <EntitySet Name="schools" EntityType="Self.school" />
+          <AssociationSet Name="FK_schools_exam" Association="Self.FK_schools_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="schools" EntitySet="schools" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="automatedexamsModelStoreContainer" CdmEntityContainer="automatedexamsEntities1">
+          <EntitySetMapping Name="exams">
+            <EntityTypeMapping TypeName="automatedexamsModel.exam">
+              <MappingFragment StoreEntitySet="exam">
+                <ScalarProperty Name="eid" ColumnName="eid" />
+                <ScalarProperty Name="ename" ColumnName="ename" />
+                <ScalarProperty Name="subjectcount" ColumnName="subjectcount" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schools">
+            <EntityTypeMapping TypeName="automatedexamsModel.school">
+              <MappingFragment StoreEntitySet="schools">
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="sname" ColumnName="sname" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="examid" ColumnName="examid" />
+                <ScalarProperty Name="city" ColumnName="city" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

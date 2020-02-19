@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "add";
+}
+
+@using (Html.BeginForm("addtodb", "school", FormMethod.Post))
+{
+    <span>School Id</span>@Html.TextBox("sid")
+    <span>School Name</span>@Html.TextBox("sname")
+    <span>No of Students</span>@Html.TextBox("scount")
+    <span>Exam Id</span>@Html.TextBox("eid")
+    <span>City</span>@Html.TextBox("city")
+    <input type="submit" />
+}
+
